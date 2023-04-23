@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBPapi", "NBPapi\NBPapi.csproj", "{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA373B1F-DA7C-4518-95F6-EE218B6C0D66}
+	EndGlobalSection
+EndGlobal
