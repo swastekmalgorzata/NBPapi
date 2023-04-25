@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using static NBPapi.AskSellCurrency;
 using static NBPapi.CurrencyModel;
 
@@ -9,75 +8,73 @@ namespace NBPapi.Controllers
     [ApiController]
     public class CurrencyController : ControllerBase
     {
-        HttpClient client = new HttpClient();
+        static readonly HttpClient client = new HttpClient();
 
         [HttpGet]
-        [Route("GetByData/{code}/{date}/")]
-        public async Task<IActionResult> GetByDate(string code, DateTime date)
+        [Route("GetByDate/{code}/{date}")]
+        public async Task<IActionResult> GetByDate(string code, string date)
         {
-            string path = $"http://api.nbp.pl/api/exchangerates/rates/A/"+code+date+"/?format=json";
+            string path = $"http://api.nbp.pl/api/exchangerates/rates/A/"+code+"/"+date+"/?format=json";
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                return Ok(await response.Content.ReadFromJsonAsync<Root>());
+                Root responseBody = await response.Content.ReadFromJsonAsync<Root>();
+                var mid = responseBody.rates.Select(a => a.mid);
+                return Ok("average for " +code+ " at " +date + " : "+mid.ElementAt(0));
             }
-            return BadRequest("unable to get the response");
+            return BadRequest("unable to get the response, check if your inputs are corerect");
         }
         [HttpGet]
         [Route("GetMinAndMax/{code}/{n}")]
         public async Task<IActionResult> GetMinAndMax(string code, int n)
         {
             string path = $"http://api.nbp.pl/api/exchangerates/rates/A/"+code+"/last/"+n+"/?format=json";
+
             HttpResponseMessage response = await client.GetAsync(path);
-            
 
             if (response.IsSuccessStatusCode)
             {
-                string responseBody = await response.Content.ReadAsStringAsync();
+                Root responseBody = await response.Content.ReadFromJsonAsync<Root>();
 
-                JObject obj = JObject.Parse(responseBody);
+                var rateMin = Math.Round(responseBody.rates.Min(a => a.mid),4);
 
-                Root rates = obj.ToObject<Root>();
-
-                var rateMin = rates.rates.Min(a => a.mid);
-
-                var rateMax = rates.rates.Max(a => a.mid);
+                var rateMax = Math.Round(responseBody.rates.Max(a => a.mid), 4);
 
                 string finalMessage = "min : " + rateMin + " max : " + rateMax;
 
                 return Ok(finalMessage);
             }
-            return BadRequest("unable to get the response");
+            return BadRequest("unable to get the response, check if your inputs are corerect");
         }
         [HttpGet]
         [Route("DiffrenceAskSell/{code}/{n}")]
-        public async Task<IActionResult> DiffrenceAskSell(string code, int n)
+        public async Task<IActionResult> DiffrenceAskBid(string code, int n)
         {
             string path = $"http://api.nbp.pl/api/exchangerates/rates/c/" + code + "/last/" + n + "/?format=json";
+
             HttpResponseMessage response = await client.GetAsync(path);
 
 
             if (response.IsSuccessStatusCode)
             {
-                string responseBody = await response.Content.ReadAsStringAsync();
+                Root2 responseBody = await response.Content.ReadFromJsonAsync<Root2>();
 
-                JObject obj = JObject.Parse(responseBody);
+                var ask = responseBody.rates.Select(a => a.ask);
 
-                Root2 rates = obj.ToObject<Root2>();
-
-                var ask = rates.rates.Select(a => a.ask);
-
-                var bid = rates.rates.Select(a => a.bid);
+                var bid = responseBody.rates.Select(a => a.bid);
 
                 var diffs = new List<double>();
 
                 for (int i = 0; i < n; i++)
                 {
-                    diffs.Add(ask.ElementAt(i) - bid.ElementAt(i));
+                    double test = ask.ElementAt(i);
+                    double test2 = bid.ElementAt(i);
+                    double diff = Math.Round(test - test2, 4);
+                    diffs.Add(diff);
                 }
                 return Ok(diffs);
             }
-            return BadRequest("unable to get the response");
+            return BadRequest("unable to get the response, check if your inputs are corerect");
         }
 
     }
