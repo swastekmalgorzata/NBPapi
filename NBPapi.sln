@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1704.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBPapi", "NBPapi\NBPapi.csproj", "{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactsAppTests", "ContactsAppTests\ContactsAppTests.csproj", "{885B2643-CD64-4F3A-BF9E-03763E8107A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70F96B5-9DC3-4BCD-BECC-B6D23F274AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{885B2643-CD64-4F3A-BF9E-03763E8107A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{885B2643-CD64-4F3A-BF9E-03763E8107A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{885B2643-CD64-4F3A-BF9E-03763E8107A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{885B2643-CD64-4F3A-BF9E-03763E8107A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
